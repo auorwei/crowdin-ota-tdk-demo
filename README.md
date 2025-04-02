@@ -7,7 +7,7 @@
 - 基于 Next.js 13+ 和 App Router
 - 使用 Crowdin OTA 实现实时内容更新
 - 支持多语言
-- 服务器端渲染 (SSR)
+- 服务器端渲染 (SSR), 不在此次演示版本中体现
 - 响应式设计
 
 ## 开始使用
@@ -48,14 +48,6 @@ yarn dev
 
 访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-## 部署
-
-### Vercel 部署
-
-1. 将代码推送到 GitHub
-2. 在 [Vercel](https://vercel.com) 导入项目
-3. 配置环境变量
-4. 部署
 
 ## 项目结构
 
