@@ -1,12 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { setLanguage, getTranslation, getAllStrings } from '../services/crowdinService';
+import { setLanguage, getAllStrings } from '../services/crowdinService';
 import { crowdinConfig } from '../crowdin-config';
+
+interface Translations {
+  [key: string]: string | Translations;
+}
 
 export default function TranslationDemo() {
   const [currentLanguage, setCurrentLanguage] = useState(crowdinConfig.sourceLanguage);
-  const [translations, setTranslations] = useState<Record<string, any>>({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -43,31 +47,33 @@ export default function TranslationDemo() {
       await setLanguage(lang);
       setCurrentLanguage(lang);
       // 存储在localStorage中以便记忆用户选择
-      localStorage.setItem('currentLanguage', lang);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('currentLanguage', lang);
+      }
     } catch (err) {
       console.error('语言切换失败:', err);
       setError('切换语言失败');
     }
   };
 
-  // 从translations对象中获取特定语言的翻译
-  const getTranslationForKey = (key: string) => {
+  // 从translations对象中获取翻译值
+  const getTranslationForKey = (key: string): string => {
     if (!translations || !translations[currentLanguage]) {
       return key;
     }
 
     // 处理嵌套键，比如 "welcome.message"
     const keyParts = key.split('.');
-    let result = translations[currentLanguage];
+    let result: any = translations[currentLanguage];
     
     for (const part of keyParts) {
-      if (!result[part]) {
+      if (!result || !result[part]) {
         return key; // 如果找不到翻译，返回键名
       }
       result = result[part];
     }
     
-    return result;
+    return result as string;
   };
 
   return (

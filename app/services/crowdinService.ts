@@ -3,8 +3,12 @@
 import otaClient from '@crowdin/ota-client';
 import { crowdinConfig } from '../crowdin-config';
 
+interface TranslationData {
+  [key: string]: string | TranslationData;
+}
+
 // 创建单例实例
-let otaClientInstance: any = null;
+let otaClientInstance: otaClient | null = null;
 
 export const getOtaClient = () => {
   if (!otaClientInstance) {
@@ -14,13 +18,13 @@ export const getOtaClient = () => {
 };
 
 // 获取所有字符串
-export const getAllStrings = async () => {
+export const getAllStrings = async (): Promise<TranslationData> => {
   const client = getOtaClient();
   return await client.getStrings();
 };
 
 // 获取特定语言的翻译
-export const getTranslation = (key: string | string[], language?: string) => {
+export const getTranslation = (key: string | string[], language?: string): Promise<string> => {
   const client = getOtaClient();
   return client.getStringByKey(
     Array.isArray(key) ? key : [key], 
@@ -29,15 +33,15 @@ export const getTranslation = (key: string | string[], language?: string) => {
 };
 
 // 设置当前语言
-export const setLanguage = (languageCode: string) => {
+export const setLanguage = async (languageCode: string): Promise<void> => {
   const client = getOtaClient();
-  return client.setCurrentLocale(languageCode);
+  await client.setCurrentLocale(languageCode);
 };
 
 // 获取当前语言
-export const getCurrentLanguage = () => {
-  const client = getOtaClient();
-  // 这里应该返回当前设置的语言，但API文档未明确提供此方法
-  // 我们可以在应用中自己维护当前语言状态
+export const getCurrentLanguage = (): string => {
+  if (typeof window === 'undefined') {
+    return crowdinConfig.sourceLanguage;
+  }
   return localStorage.getItem('currentLanguage') || crowdinConfig.sourceLanguage;
 }; 
