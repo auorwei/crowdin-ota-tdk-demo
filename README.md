@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crowdin OTA TDK Demo
 
-## Getting Started
+这是一个使用 Next.js 和 Crowdin OTA 实现的实时 TDK (Title, Description, Keywords) 管理系统演示。
 
-First, run the development server:
+## 功能特点
 
+- 基于 Next.js 13+ 和 App Router
+- 使用 Crowdin OTA 实现实时内容更新
+- 支持多语言
+- 服务器端渲染 (SSR)
+- 响应式设计
+
+## 开始使用
+
+### 环境要求
+
+- Node.js 16.8 或更高版本
+- npm 或 yarn
+
+### 安装
+
+1. 克隆仓库
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/crowdin-ota-tdk-demo.git
+cd crowdin-ota-tdk-demo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 安装依赖
+```bash
+npm install
+# 或
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. 配置环境变量
+创建 `.env.local` 文件并添加以下内容：
+```env
+NEXT_PUBLIC_CROWDIN_DISTRIBUTION_HASH=your_distribution_hash
+NEXT_PUBLIC_CROWDIN_PROJECT_ID=your_project_id
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. 运行开发服务器
+```bash
+npm run dev
+# 或
+yarn dev
+```
 
-## Learn More
+访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-To learn more about Next.js, take a look at the following resources:
+## 部署
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Vercel 部署
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. 将代码推送到 GitHub
+2. 在 [Vercel](https://vercel.com) 导入项目
+3. 配置环境变量
+4. 部署
 
-## Deploy on Vercel
+## 项目结构
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── app/
+│   ├── components/     # React 组件
+│   ├── services/      # 服务层
+│   ├── contexts/      # React Context
+│   ├── server/        # 服务器端代码
+│   └── page.tsx       # 主页
+├── public/            # 静态资源
+└── package.json       # 项目配置
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 技术栈
+
+- Next.js 13+
+- TypeScript
+- Tailwind CSS
+- Crowdin OTA Client
+- React Context API
+
+## 许可证
+
+MIT
