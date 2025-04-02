@@ -64,16 +64,16 @@ export default function TranslationDemo() {
 
     // 处理嵌套键，比如 "welcome.message"
     const keyParts = key.split('.');
-    let result: any = translations[currentLanguage];
+    let result: Translations = translations[currentLanguage] as Translations;
     
     for (const part of keyParts) {
-      if (!result || !result[part]) {
+      if (!result || typeof result !== 'object' || !(part in result)) {
         return key; // 如果找不到翻译，返回键名
       }
-      result = result[part];
+      result = result[part] as Translations;
     }
     
-    return result as string;
+    return typeof result === 'string' ? result : key;
   };
 
   return (
